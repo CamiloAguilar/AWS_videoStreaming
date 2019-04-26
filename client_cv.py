@@ -21,11 +21,11 @@ sender = imagezmq.ImageSender(connect_to="tcp://{}:8089".format(
 # camera sensor to warmup
 rpiName = socket.gethostname()
 #vs = VideoStream(usePiCamera=True).start()
-#vs = VideoStream(src=0).start()
-vs = cv2.VideoCapture(0)
+vs = VideoStream(src=0).start()
+#vs = cv2.VideoCapture(0)
 time.sleep(2.0)
  
 while True:
 	# read the frame from the camera and send it to the server
-	grabed, frame = vs.read()
+	frame = vs.read()
 	sender.send_image(rpiName, frame)

@@ -70,12 +70,12 @@ while True:
  
 	# if a device is not in the last active dictionary then it means
 	# that its a newly connected device
-	if rpiName not in lastActive.keys():
-		print("[INFO] receiving data from {}...".format(rpiName))
+	#if rpiName not in lastActive.keys():
+	#	print("[INFO] receiving data from {}...".format(rpiName))
  
 	# record the last active time for the device from which we just
 	# received a frame
-	lastActive[rpiName] = datetime.now()
+	#lastActive[rpiName] = datetime.now()
 
 	# resize the frame to have a maximum width of 400 pixels, then
 	# grab the frame dimensions and construct a blob
