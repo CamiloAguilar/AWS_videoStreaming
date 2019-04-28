@@ -16,6 +16,11 @@ while True:
         jpg_as_text = base64.b64encode(buffer)
         footage_socket.send(jpg_as_text)
 
+        key = cv2.waitKey(1) & 0xFF
+        # if the `q` key was pressed, break from the loop
+        if key == ord("q"):
+        	break
+
     except KeyboardInterrupt:
         camera.release()
         cv2.destroyAllWindows()
