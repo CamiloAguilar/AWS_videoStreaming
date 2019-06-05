@@ -1,20 +1,27 @@
-import base64
 import cv2
-import zmq
+import numpy as np
+import socket
+import sys
+import pickle
+import struct
 
-context = zmq.Context()
-footage_socket = context.socket(zmq.PUB)
-footage_socket.connect('tcp://18.231.176.132:443')
-
-camera = cv2.VideoCapture(0)  # init the camera
+cap=cv2.VideoCapture(0)
+clientsocket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+clientsocket.connect(('18.231.176.132', 443)) #'tcp://18.231.176.132:443
 
 while True:
     try:
         grabbed, frame = camera.read()  # grab the current frame
         frame = cv2.resize(frame, (640, 480))  # resize the frame
-        encoded, buffer = cv2.imencode('.jpg', frame)
-        jpg_as_text = base64.b64encode(buffer)
-        footage_socket.send(jpg_as_text)
+        
+        # Serialize frame
+        data = pickle.dumps(frame)
+        
+        # Send message length first
+        message_size = struct.pack("L", len(data)) ### CHANGED
+
+        # Then data
+        client_sock.sendall(message_size + data)
         print('...sending frames to AWS')
 
     except KeyboardInterrupt:
