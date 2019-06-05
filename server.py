@@ -4,7 +4,7 @@ import struct
 
 import cv2
 
-HOST = '18.231.176.132'
+HOST = ''
 PORT = 443
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
